@@ -8,10 +8,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.*;
 import android.webkit.*;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -86,6 +83,25 @@ public class HelloWebView extends Activity {
                 quotaUpdater.updateQuota(5 * 1024 * 1024);
             }
         });
+        /**
+         * Thanks to:
+         * http://stackoverflow.com/questions/4293965/android-webview-focus-problem
+        */
+        webview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
+                        if (!v.hasFocus()) {
+                            v.requestFocus();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
+
 
         textUrl.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -102,16 +118,6 @@ public class HelloWebView extends Activity {
 
 
                 //return false;  //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-
-            @Override
-            public boolean onKeyDown(int keyCode, KeyEvent event){
-                if(keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()){
-                    webview.goBack();
-                    return true;
-                }
-                return super.onKeyDown(keyCode, event);
             }
         });
 

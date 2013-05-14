@@ -12,5 +12,5 @@
     <WebView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/webview"/>
+            android:id="@+id/webview" android:focusable="true"/>
 </LinearLayout>
