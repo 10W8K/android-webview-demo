@@ -103,6 +103,16 @@ public class HelloWebView extends Activity {
 
                 //return false;  //To change body of implemented methods use File | Settings | File Templates.
             }
+
+
+            @Override
+            public boolean onKeyDown(int keyCode, KeyEvent event){
+                if(keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()){
+                    webview.goBack();
+                    return true;
+                }
+                return super.onKeyDown(keyCode, event);
+            }
         });
 
     }
