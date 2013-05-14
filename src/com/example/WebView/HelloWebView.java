@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.*;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,15 +27,21 @@ import android.widget.Toast;
 public class HelloWebView extends Activity {
     WebView webview;
 
-    //EditText textUrl;
+    EditText textUrl;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //This code makes the current Activity Full-Screen. No Status-Bar or anything except the Activity-Window!
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         setContentView(R.layout.main);
 
         WebView.enablePlatformNotifications();
 
-        //textUrl = (EditText) findViewById(R.id.textUrl);
+        textUrl = (EditText) findViewById(R.id.textUrl);
         webview = (WebView)findViewById(R.id.webview);
 
         webview.getSettings().setJavaScriptEnabled(true);
@@ -79,7 +87,7 @@ public class HelloWebView extends Activity {
             }
         });
 
-        /*textUrl.setOnKeyListener(new View.OnKeyListener() {
+        textUrl.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
 
@@ -87,14 +95,16 @@ public class HelloWebView extends Activity {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     webview.loadUrl(textUrl.getText().toString());
-                    //return true;
+                    return true;
+                }else{
+                    return false;
                 }
-                return true;
+
 
                 //return false;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-*/
+
     }
 
     long startTime;
