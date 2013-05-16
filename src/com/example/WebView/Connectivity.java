@@ -12,6 +12,8 @@ import android.telephony.TelephonyManager;
  * Time: 上午12:34
  * To change this template use File | Settings | File Templates.
  * Check device's network connectivity and speed
+ * Thanks to:
+ *      https://gist.github.com/emil2k/5130324
  * @author emil http://stackoverflow.com/users/220710/emil
  */
 public class Connectivity {
