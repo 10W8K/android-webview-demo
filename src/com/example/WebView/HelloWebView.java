@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -27,6 +29,14 @@ public class HelloWebView extends Activity {
     EditText textUrl;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /**
+         * For IDEA :
+         *   Tools -> Android -> Monitor(DDMS included)
+         *   可以打开LogCat
+         */
+        //getNetworkInfo
+        Log.d("network info",Connectivity.getNetworkInfo(this).toString());
 
         //This code makes the current Activity Full-Screen. No Status-Bar or anything except the Activity-Window!
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -54,7 +64,7 @@ public class HelloWebView extends Activity {
 
         WebSettings settings = webview.getSettings();
         //启用javascript
-        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptEnabled(false);
         //Sets whether the database storage API is enabled.
         settings.setDatabaseEnabled(true);
         //禁用App缓存
@@ -189,5 +199,4 @@ public class HelloWebView extends Activity {
         }
         */
     }
-
 }
