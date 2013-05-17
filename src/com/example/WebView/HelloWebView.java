@@ -15,6 +15,8 @@ import android.webkit.*;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Alex
@@ -60,11 +62,14 @@ public class HelloWebView extends Activity {
         webview.loadUrl("http://mobilepp.stable.alipay.net");
         //webview.loadUrl("https://m.alipay.com/appIndex.htm");
 
-        //webview.addJavascriptInterface(new MyJavascriptInterface(),"Android");
+        //
+
+
+
 
         WebSettings settings = webview.getSettings();
         //启用javascript
-        settings.setJavaScriptEnabled(false);
+        settings.setJavaScriptEnabled(true);
         //Sets whether the database storage API is enabled.
         settings.setDatabaseEnabled(true);
         //禁用App缓存
@@ -77,6 +82,11 @@ public class HelloWebView extends Activity {
 
         String databasePath = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
         settings.setDatabasePath(databasePath);
+
+
+
+        webview.addJavascriptInterface(new TheJavascriptInterface(this),"Android");
+
 
         final Activity activity = this;
         webview.setWebChromeClient(new WebChromeClient(){
@@ -188,15 +198,5 @@ public class HelloWebView extends Activity {
             super.onLoadResource(view, url);
             Log.i("TAG", "url : " + url);
         }
-    }
-
-    final class MyJavascriptInterface {
-        /*
-        public void ProcessJavascript(final String scriptname, final String args){
-            mHandler.post(new Runnable(){
-
-            });
-        }
-        */
     }
 }
