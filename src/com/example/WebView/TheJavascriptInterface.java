@@ -26,6 +26,11 @@ public class TheJavascriptInterface {
         mContext = c;
     }
 
+
+    public String getNetworkInfo(){
+        return Connectivity.getNetworkInfo(mContext).toString();
+    }
+
     //该方法将暴露给Javascript脚本调用
     public void showToast(String name){
         Toast.makeText(mContext, name + "，您好！",

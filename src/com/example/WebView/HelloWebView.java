@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.webkit.*;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +31,10 @@ public class HelloWebView extends Activity {
     WebView webview;
 
     EditText textUrl;
+
+    Button goBack;
+
+    Button go;
 
     boolean javascriptInterfaceBroken;
 
@@ -52,10 +57,15 @@ public class HelloWebView extends Activity {
 
         setContentView(R.layout.main);
 
-        WebView.enablePlatformNotifications();
+        //貌似2.3下的方法 4.x已不支持
+        //This method is deprecated. This method is now obsolete.
+        //Enables platform notifications of data state and proxy changes. Notifications are enabled by default.
+        //WebView.enablePlatformNotifications();
 
         textUrl = (EditText) findViewById(R.id.textUrl);
         webview = (WebView)findViewById(R.id.webview);
+        goBack = (Button) findViewById(R.id.goback);
+        go = (Button) findViewById(R.id.go);
 
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -66,6 +76,8 @@ public class HelloWebView extends Activity {
          * http://stackoverflow.com/questions/2653923/cant-type-inside-a-web-view
          */
         webview.requestFocus(View.FOCUS_DOWN);
+
+
 
         webview.setWebViewClient(new HelloWebViewClient());
         //webview.loadUrl("https://mcashier.test.alipay.net/cashier/wapcashier_login.htm");
@@ -97,9 +109,11 @@ public class HelloWebView extends Activity {
         // Determine if JavaScript interface is broken.
         // For now, until we have further clarification from the Android team,
         // use version number.
-        Log.d("android version",Build.VERSION.RELEASE);
+        // 2.3.x下检测到js core为JSC, 并且调用Android Native方法导致应用程序崩溃
+        // 4.1.2下js core为V8, 执行正常
+        Log.d("android version",Build.VERSION.RELEASE.toString());
         try {
-            if ("2.3".equals(Build.VERSION.RELEASE)) {
+            if ("2.3.3".equals(Build.VERSION.RELEASE)) {
                 javascriptInterfaceBroken = true;
             }
         } catch (Exception e) {
@@ -154,7 +168,8 @@ public class HelloWebView extends Activity {
                 // If the event is a key-down event on the "enter" button
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    webview.loadUrl(textUrl.getText().toString());
+                    //webview.loadUrl(textUrl.getText().toString());
+                    go.performClick();
                     return true;
                 }else{
                     return false;
@@ -162,6 +177,20 @@ public class HelloWebView extends Activity {
 
 
                 //return false;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener(){
+             public void onClick(View v){
+                if(webview.canGoBack()){
+                    webview.goBack();
+                }
+             }
+        });
+
+        go.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                webview.loadUrl(textUrl.getText().toString());
             }
         });
 
@@ -177,6 +206,8 @@ public class HelloWebView extends Activity {
             //startActivity(intent);
             //return true;
             view.loadUrl(url);
+            textUrl.setText(url.toString());
+            //Log.d("getUrl",webview.getUrl().toString());
             return false;
         }
 
@@ -197,6 +228,7 @@ public class HelloWebView extends Activity {
         // 开始加载
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            //textUrl.setText(webview.getUrl().toString());
             super.onPageStarted(view, url, favicon);
             startTime = System.currentTimeMillis();
         }
@@ -207,6 +239,7 @@ public class HelloWebView extends Activity {
             super.onPageFinished(view, url);
             endTime = System.currentTimeMillis();
             Log.e("TAG", "costTime:" + (endTime - startTime));
+            //textUrl.setText(webview.getUrl().toString());
 
             if(javascriptInterfaceBroken){
                 /*String handleGingerbreadStupidity=
