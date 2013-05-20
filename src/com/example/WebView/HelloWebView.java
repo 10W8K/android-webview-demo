@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -29,6 +30,9 @@ public class HelloWebView extends Activity {
     WebView webview;
 
     EditText textUrl;
+
+    boolean javascriptInterfaceBroken;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -57,6 +61,12 @@ public class HelloWebView extends Activity {
         webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webview.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
 
+        /**
+         * Can't type inside a Web View
+         * http://stackoverflow.com/questions/2653923/cant-type-inside-a-web-view
+         */
+        webview.requestFocus(View.FOCUS_DOWN);
+
         webview.setWebViewClient(new HelloWebViewClient());
         //webview.loadUrl("https://mcashier.test.alipay.net/cashier/wapcashier_login.htm");
         webview.loadUrl("http://mobilepp.stable.alipay.net");
@@ -84,8 +94,22 @@ public class HelloWebView extends Activity {
         settings.setDatabasePath(databasePath);
 
 
-
-        webview.addJavascriptInterface(new TheJavascriptInterface(this),"Android");
+        // Determine if JavaScript interface is broken.
+        // For now, until we have further clarification from the Android team,
+        // use version number.
+        Log.d("android version",Build.VERSION.RELEASE);
+        try {
+            if ("2.3".equals(Build.VERSION.RELEASE)) {
+                javascriptInterfaceBroken = true;
+            }
+        } catch (Exception e) {
+            // Ignore, and assume user javascript interface is working correctly.
+        }
+        // Add javascript interface only if it's not broken
+        if (!javascriptInterfaceBroken) {
+            webview.addJavascriptInterface(new TheJavascriptInterface(this), "Native");
+        }
+        //webview.addJavascriptInterface(new TheJavascriptInterface(this),"Native");
 
 
         final Activity activity = this;
@@ -183,6 +207,14 @@ public class HelloWebView extends Activity {
             super.onPageFinished(view, url);
             endTime = System.currentTimeMillis();
             Log.e("TAG", "costTime:" + (endTime - startTime));
+
+            if(javascriptInterfaceBroken){
+                /*String handleGingerbreadStupidity=
+                        "javascript:function openQuestion(id) { window.location='http://jshandler:openQuestion:'+id; }; "
+                                + "javascript: function handler() { this.openQuestion=openQuestion; }; "
+                                + "javascript: var jshandler = new handler();";
+                view.loadUrl(handleGingerbreadStupidity);*/
+            }
         }
 
 
