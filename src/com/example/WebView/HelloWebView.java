@@ -1,6 +1,7 @@
 package com.example.WebView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +34,8 @@ public class HelloWebView extends Activity {
 
     boolean javascriptInterfaceBroken;
 
+    ProgressDialog mypProgressBar;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -52,7 +55,7 @@ public class HelloWebView extends Activity {
 
         setContentView(R.layout.main);
 
-        WebView.enablePlatformNotifications();
+       // WebView.enablePlatformNotifications();
 
         textUrl = (EditText) findViewById(R.id.textUrl);
         webview = (WebView)findViewById(R.id.webview);
@@ -67,12 +70,48 @@ public class HelloWebView extends Activity {
          */
         webview.requestFocus(View.FOCUS_DOWN);
 
-        webview.setWebViewClient(new HelloWebViewClient());
+        //webview.setWebViewClient(new HelloWebViewClient());
         //webview.loadUrl("https://mcashier.test.alipay.net/cashier/wapcashier_login.htm");
+
+        mypProgressBar = ProgressDialog.show(HelloWebView.this, "MaxPowerSoft Example", "Loading...");
+
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                Log.d("pageStarted:",url);
+                mypProgressBar.show();
+                mypProgressBar.onStart();
+                super.onPageStarted(view, url, favicon);
+            }
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.d("pageFinished:",url);
+                if (mypProgressBar.isShowing()) {
+                    mypProgressBar.cancel();
+                }
+            }
+            public void onLoadResource(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.d("LoadResource:",url);
+            }
+        });
+
+        webview.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()) {  //表示按返回键
+                        webview.goBack();   //后退
+                        //webview.goForward();//前进
+                        return true;    //已处理
+                    }
+                }
+                return false;
+            }
+        });
         webview.loadUrl("http://mobilepp.stable.alipay.net");
         //webview.loadUrl("https://m.alipay.com/appIndex.htm");
-
-        //
 
 
 
@@ -92,7 +131,6 @@ public class HelloWebView extends Activity {
 
         String databasePath = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
         settings.setDatabasePath(databasePath);
-
 
         // Determine if JavaScript interface is broken.
         // For now, until we have further clarification from the Android team,
