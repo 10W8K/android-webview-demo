@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<RelativeLayout
+android:layout_width="fill_parent"
+android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:focusable="true"
+android:focusableInTouchMode="true">
     <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="http://"
-            android:id="@+id/textUrl" android:layout_gravity="center" android:hint="填写url" android:inputType="textUri"/>
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="http://"
+        android:id="@+id/textUrl" android:layout_gravity="center" android:hint="填写url" android:inputType="textUri"/>
     <WebView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/webview" android:focusable="true"/>
-</LinearLayout>
+</RelativeLayout>
