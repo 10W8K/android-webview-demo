@@ -14,12 +14,17 @@
                   android:windowSoftInputMode="adjustResize"
                   android:launchMode="singleTop"
                   android:alwaysRetainTaskState="true">
+            <!--intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter-->
+        </activity>
+        <activity android:name=".MainView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
     </application>
 
     <!-- 设置layout适应屏幕的大小 -->

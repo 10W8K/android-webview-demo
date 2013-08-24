@@ -85,6 +85,8 @@ public class HelloWebView extends Activity {
         String databasePath = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
         settings.setDatabasePath(databasePath);
 
+
+
     }
 
 }
