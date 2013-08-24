@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-
-<RelativeLayout
-android:layout_width="fill_parent"
-android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:focusable="true"
-android:focusableInTouchMode="true">
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="http://"
-        android:id="@+id/textUrl" android:layout_gravity="center" android:hint="填写url" android:inputType="textUri"/>
-    <WebView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/webview" android:focusable="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="107dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="104dp"/>
 </RelativeLayout>

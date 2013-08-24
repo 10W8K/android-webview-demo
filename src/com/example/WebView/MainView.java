@@ -15,7 +15,7 @@ public class MainView extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.index);
+        setContentView(R.layout.main);
 
         /* 新建一个Intent对象 */
         Intent intent = new Intent();

@@ -45,7 +45,7 @@ public class HelloWebView extends Activity {
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.hellowebview);
 
         WebView.enablePlatformNotifications();
 
