@@ -3,25 +3,11 @@ package com.example.WebView;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.net.http.SslError;
-import android.nfc.Tag;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.*;
 import android.webkit.*;
 import android.widget.EditText;
-import android.widget.Toast;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created with IntelliJ IDEA.
