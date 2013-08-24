@@ -32,14 +32,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.STATUS_BAR" />
 
-    <!--  JSHybugger webview content provider -->
-    <provider android:name="org.jshybugger.DebugContentProvider"
-              android:exported="false"
-              android:authorities="jsHybugger.org" />
 
-    <!--  JSHybugger debug service -->
-    <service android:name="org.jshybugger.DebugService"
-             android:exported="false"
-             android:enabled="true"/>
 
 </manifest>

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -17,7 +16,7 @@ import android.view.*;
 import android.webkit.*;
 import android.widget.EditText;
 import android.widget.Toast;
-import org.jshybugger.DebugServiceClient;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,11 +50,8 @@ public class HelloWebView extends Activity {
          */
         //getNetworkInfo
 
-        //Connectivity.getNetworkInfo(this).
 
-        Log.d("UserLog::network info",Connectivity.getNetworkInfo(this).toString());
-        Log.d("UserLog::network type","" + Connectivity.getNetWorkType(this));
-        //Log.d("UserLog::network type",Connectivity.getNetWorkType(this));
+
 
         //This code makes the current Activity Full-Screen. No Status-Bar or anything except the Activity-Window!
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -169,11 +165,7 @@ public class HelloWebView extends Activity {
         } catch (Exception e) {
             // Ignore, and assume user javascript interface is working correctly.
         }
-        // Add javascript interface only if it's not broken
-        if (!javascriptInterfaceBroken) {
-            webview.addJavascriptInterface(new TheJavascriptInterface(this), "Native");
-        }
-        //webview.addJavascriptInterface(new TheJavascriptInterface(this),"Native");
+
 
 
         final Activity activity = this;
