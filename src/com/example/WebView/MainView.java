@@ -23,7 +23,8 @@ public class MainView extends Activity {
         /* 指定intent要启动的类 */
         intent.setClass(MainView.this, HelloWebView.class);
         /* 启动一个新的Activity */
-        MainView.this.startActivity(intent);
+        startActivity(intent);
+        //HelloWebView.this.startActivity(intent);
         /* 关闭当前的Activity */
         MainView.this.finish();
     }
