@@ -17,7 +17,7 @@ import android.view.*;
 import android.webkit.*;
 import android.widget.EditText;
 import android.widget.Toast;
-import org.jshybugger.DebugServiceClient;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,9 +58,11 @@ public class HelloWebView extends Activity {
         //Log.d("UserLog::network type",Connectivity.getNetWorkType(this));
 
         //This code makes the current Activity Full-Screen. No Status-Bar or anything except the Activity-Window!
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //http://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_FULLSCREEN
+        //注意：一下这段配置将带来键盘挡住输入框的问题，谨慎配置
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -131,8 +133,8 @@ public class HelloWebView extends Activity {
         //webview.loadUrl("content://jsHybugger.org/https://m.alipay.com/appIndex.htm");
         //webview.loadData("aaaa", "text/html", null);
         //webview.loadUrl("http://mobilepp.stable.alipay.net");
-        //webview.loadUrl("http://d.alipay.com/appdebug/demo3.htm");
-        webview.loadUrl("http://wappaygw.alipay.com/cashier/wapcashier_login.htm");
+        webview.loadUrl("http://d.alipay.com/appdebug/demo3.htm");
+        //webview.loadUrl("http://wappaygw.alipay.com/cashier/wapcashier_login.htm");
         //http://portal.manjushri.alibaba.com/portal/portal/init.jspa?instanceCode=ALIR00001297&scenceCode=SCEN00002265&digest=8937710d31bd8f6a991c8133c8a7696d
         //http://onlinehelp.alipay.com/portal/portal/init.jspa?instanceCode=ALIR00001297&scenceCode=SCEN00003363&digest=cf0b4a3d4f5af0c15c4232fb7d4c3fb5
 
