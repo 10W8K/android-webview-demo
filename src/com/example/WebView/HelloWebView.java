@@ -38,6 +38,8 @@ public class HelloWebView extends Activity {
 
 
         //This code makes the current Activity Full-Screen. No Status-Bar or anything except the Activity-Window!
+        //注意：一下这段配置将带来键盘挡住输入框的问题，谨慎配置
+        //http://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_FULLSCREEN
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
