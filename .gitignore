@@ -13,3 +13,6 @@ gen/
 local.properties
 
 build.xml
+
+
+ant.properties
